@@ -33,3 +33,9 @@ def func4(iterable):
 def func5(iterable):
     for _ in iterable:
         func1(iterable)
+
+
+def func6(iterable):
+    for _ in iterable:
+        for _ in range(5):
+            quick_mafs()
