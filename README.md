@@ -5,7 +5,7 @@ Repo päivölän algotunnin esimerkeille ja tehtäville.
 
 1. Asenna git (Evolla jo asennettuna)
 2. Asenna python3 (Evolla jo asennettuna)
-3. Asenna pytest `python3 -m pip install pytest`
+3. Asenna pytest `python3 -m pip install -r requirements.txt`
 4. `git clone https://github.com/haihala/pvl-algot2021.git`
 5. `cd pvl-algot2021`
 
