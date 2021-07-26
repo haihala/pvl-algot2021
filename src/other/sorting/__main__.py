@@ -1,4 +1,6 @@
-from helpers import benchmark, doubler
+from tabulate import tabulate
+
+from helpers import benchmark
 
 from bogo import bogo_benchmark, test_bogo
 from stalin import stalin_benchmark, test_stalin
@@ -14,16 +16,20 @@ def main():
 
 
 def benchmarks():
-    bogo_benchmark()
-    stalin_benchmark()
-    bubble_benchmark()
-    insertion_benchmark()
-    quick_benchmark()
-    benchmark(
-        'Sorted',
-        sorted,
-        doubler(1000),
-    )
+    print(tabulate([
+        bogo_benchmark(),
+        stalin_benchmark(),
+        bubble_benchmark(),
+        insertion_benchmark(),
+        quick_benchmark(),
+        benchmark(
+            'Python builtin "sorted"',
+            sorted,
+            100000,
+        ),
+    ], headers=['Algo', 'Keskimääräinen kippauspiste'],
+        floatfmt='f',
+    ))
 
 
 def tests():

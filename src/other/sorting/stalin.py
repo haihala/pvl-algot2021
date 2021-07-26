@@ -1,4 +1,4 @@
-from helpers import benchmark, doubler, generate_random_list
+from helpers import benchmark, generate_random_list
 
 from typing import List
 from functools import partial
@@ -24,4 +24,4 @@ def test_stalin():
     assert len(result) <= len(items)
 
 
-stalin_benchmark = partial(benchmark, 'Stalin sort', stalin, doubler(1000))
+stalin_benchmark = partial(benchmark, 'Stalin sort', stalin, 100000)

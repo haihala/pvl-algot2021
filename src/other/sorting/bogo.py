@@ -1,4 +1,4 @@
-from helpers import benchmark, doubler, generate_random_list
+from helpers import benchmark, generate_random_list
 
 from typing import List
 from random import shuffle
@@ -21,4 +21,4 @@ def test_bogo():
     assert bogo(items[:]) == sorted(items)
 
 
-bogo_benchmark = partial(benchmark, 'Bogo sort', bogo, doubler(4))
+bogo_benchmark = partial(benchmark, 'Bogo sort', bogo, 4)

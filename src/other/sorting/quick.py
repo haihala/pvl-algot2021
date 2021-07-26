@@ -1,4 +1,4 @@
-from helpers import benchmark, doubler, generate_random_list
+from helpers import benchmark, generate_random_list
 
 from typing import List, Optional
 from functools import partial
@@ -44,5 +44,5 @@ quick_benchmark = partial(
     benchmark,
     'Quick sort',
     quick,
-    doubler(1000),
+    10000,
 )

@@ -1,4 +1,4 @@
-from helpers import benchmark, doubler, generate_random_list
+from helpers import benchmark, generate_random_list
 
 from typing import List
 from functools import partial
@@ -22,4 +22,4 @@ def test_bubble():
     assert result == sorted(items), result
 
 
-bubble_benchmark = partial(benchmark, 'Bubble sort', bubble, doubler(1000))
+bubble_benchmark = partial(benchmark, 'Bubble sort', bubble, 1000)
