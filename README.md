@@ -16,3 +16,9 @@ Yksittäinen tiedosto: `python3 -m pytest <tiedosto>`
 Useita: `python3 -m pytest <monta> <välilyönneillä> <erotettua> <tiedostoa>`
 
 Jos asentaa omalle koneelle, niin ei ehkä tarvitse `python3 -m`
+
+## Muuta materiaalia
+
+Diat: https://docs.google.com/presentation/d/10M7v8ff80dIeOi_iMS23VvtQp1P9WtYEQdKQs8HzaaY/edit?usp=sharing
+Datatähti: https://datatahti.fi/
+Project Euler: https://projecteuler.net/archives
