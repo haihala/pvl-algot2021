@@ -4,26 +4,34 @@ from math import sqrt
 
 def brute_force(num: int) -> Set[int]:
     collector = set()
-    for i in range(2, num + 1):
-        # 1 ei ole alkuluku
-        # range ei ota yläpäätä mukaan, jonka takia +1
+    for i in range(2, num+1):
+        # 1 ei ole alkuluku, jonka tähden aloitetaan range 2:sta
         if num % i == 0:
+            # Tässä kohtaa lisätään kaikki tekijät
             collector.add(i)
 
-    return collector
+    return set(
+        filter(
+            lambda x: not any(
+                x % i == 0 and x is not i
+                for i in collector
+            ),
+            collector,
+        )
+    )
 
 
 def recursive_solution(num: int) -> Set[int]:
-    factors = set()
-    for i in range(2, int(sqrt(num))+1):
-        if num % i == 0:
-            for j in [i, num//i]:
-                if sub_factors := recursive_solution(j):
-                    factors |= sub_factors
-                else:
-                    factors.add(j)
-
-    return factors
+    collector = {
+        j
+        for i in filter(lambda x: num % x == 0, range(2, int(sqrt(num))+1))
+        for j in {i, num//i}
+        if recursive_solution(j) == {j}
+    }
+    if len(collector) == 0:
+        collector.add(num)
+    collector.discard(1)
+    return collector
 
 
 def stackoverflow_solution(num: int) -> Set[int]:

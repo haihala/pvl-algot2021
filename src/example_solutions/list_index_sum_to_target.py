@@ -11,7 +11,7 @@ def brute_force_solution(nums: List[int], target: int) -> Tuple[int, int]:
 def bounds_solution(nums: List[int], target: int) -> Tuple[int, int]:
     low = 0
     high = len(nums) - 1
-    while low != high:
+    while True:
         current = nums[low] + nums[high]
         if current == target:
             return (low, high)
