@@ -15,3 +15,7 @@ def test_prime_factors():
     # {} on pythonissa tyhjä dict, joka ei ole yhtä suuri kuin tyhjä setti, niin pitää käyttää set()
     assert prime_factors(1) == set()
     assert prime_factors(3) == {3}
+
+
+if __name__ == '__main__':
+    test_prime_factors()

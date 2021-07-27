@@ -13,3 +13,7 @@ def test_list_index_sum_to_target():
     assert list_index_sum_to_target(nums, 3) == (0, 1)      # 1+2=3
     assert list_index_sum_to_target(nums, 5) == (0, 2)      # 1+4=5
     assert list_index_sum_to_target(nums, 12) == (2, 3)     # 4+8=12
+
+
+if __name__ == '__main__':
+    test_list_index_sum_to_target()
