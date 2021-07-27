@@ -21,6 +21,14 @@ a, b = [1, 2]
 a = 1
 b = 2
 
+lista = ['porkkana', 'omena', 'päärynä']
+assert lista[0] == 'porkkana'
+assert lista[1] == 'omena'
+assert lista[2] == 'päärynä'
+assert lista[2] == lista[-1]
+# Negatiiviset numerot laskee perästä
+# -1 on viimeinen, -2 toiseksi viimeinen jne
+
 # Range
 for i in range(5):
     print(i)
@@ -31,7 +39,6 @@ for i in range(5):
 # 3
 # 4
 
-lista = ['porkkana', 'omena', 'päärynä']
 for i in lista:
     print(i)
 # Tulostaa:

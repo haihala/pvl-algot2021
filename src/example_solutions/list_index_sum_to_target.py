@@ -9,6 +9,8 @@ def brute_force_solution(nums: List[int], target: int) -> Tuple[int, int]:
 
 
 def bounds_solution(nums: List[int], target: int) -> Tuple[int, int]:
+    # Ei toimi jos lista ei ole järjestyksessä
+
     low = 0
     high = len(nums) - 1
     while True:
@@ -20,8 +22,6 @@ def bounds_solution(nums: List[int], target: int) -> Tuple[int, int]:
             high -= 1
         else:
             low += 1
-
-    # You never should've come here, jossain on bugi
 
 
 def dict_solution(nums: List[int], target: int) -> Tuple[int, int]:

@@ -10,6 +10,7 @@ def brute_force(num: int) -> Set[int]:
             # Tässä kohtaa lisätään kaikki tekijät
             collector.add(i)
 
+    # Tässä kohtaa suodatetaan ne pois jotka eivät ole alkulukuja
     return set(
         filter(
             lambda x: not any(
@@ -41,6 +42,7 @@ def stackoverflow_solution(num: int) -> Set[int]:
     collector = set()
 
     i = 2
+    # i**2 == i*i == i^2(python ei tue tätä)
     while i**2 <= num:
         if num % i == 0:
             collector.add(i)
