@@ -1,5 +1,4 @@
 from multiprocessing import Process
-import multiprocessing
 from numpy.random import randint as random_numpy_array
 from time import time
 from dataclasses import dataclass
