@@ -1,7 +1,6 @@
-from multiprocessing import Process
+from threading import Thread
+from math import inf
 from numpy.random import randint as random_numpy_array
-from time import time
-from dataclasses import dataclass
 from typing import List, Optional, Callable
 
 
@@ -10,34 +9,71 @@ def generate_random_list(
     lower_bound: Optional[int] = 0,
     upper_bound: Optional[int] = 1_000_000_000,
 ) -> List[int]:
+    if length > 10_000_000:
+        # Oppimiskokemus.
+        # Lisätty sen jälkeen kun puolitushaku havaittiin niin nopeaksi että
+        # koneessa ei ollut tarpeeksi muistia niin pitkälle listalle että se timeouttaisi.
+        # Listan sorttaaminen etukäteen oli myös aika iso ongelma.
+        raise MemoryError
     return random_numpy_array(lower_bound, upper_bound, length).tolist()
+
+
+def adjust_magnitude(old: int, increase: bool) -> int:
+    if increase:
+        return 10*old
+    else:
+        return int(old/10)
+
+
+def weighted_average(upper: int, lower: int) -> int:
+    return int((upper+lower*2)/3)
+
+
+def output(upper: int, lower: int) -> str:
+    average = int((upper+lower)/2)
+    deviation = int((upper-lower)/2)
+    return average, f'+/- {deviation}'
 
 
 def benchmark(
     name: str,
-    sort_func: Callable[
+    search_func: Callable[
         [List[int]],
         List[int]
     ],
-    initial_length,
-    timeout: Optional[float] = 1.0,
-    strikes_before_out: Optional[int] = 3,
+    initial_length: int,
+    timeout: Optional[float] = 1,
+    bisections: Optional[int] = 10,
 ):
     print(f'Benchmarking {name}')
+    bisections_completed = 0
     length = initial_length
-    strikes = []
-    while len(strikes) < strikes_before_out:
-        result = run_sort(sort_func, name, length, timeout)
-        if result.timeout:
-            strikes.append(length)
-            length = int(length/1.1)
-        else:
-            length = int(max(
-                length * 1.1,
-                length / result.time_share_used,
-            ))
+    highest_success = 0
+    lowest_failure = inf
 
-    return (name, int(sum(strikes)/strikes_before_out))
+    while bisections_completed < bisections:
+        try:
+            ran_without_timeout = run_sort(
+                search_func,
+                name,
+                length,
+                timeout,
+            )
+        except MemoryError:
+            return (name, 'Muisti safeguard kicks in')
+
+        if ran_without_timeout:
+            highest_success = length
+        else:
+            lowest_failure = length
+
+        next_length = adjust_magnitude(length, ran_without_timeout)
+        if lowest_failure > next_length > highest_success:
+            length = next_length
+        else:
+            length = weighted_average(lowest_failure, highest_success)
+            bisections_completed += 1
+    return (name, *output(lowest_failure, highest_success))
 
 
 def run_sort(
@@ -49,22 +85,15 @@ def run_sort(
     length: int,
     timeout: float,
 ):
-    process = Process(
+    random_list = generate_random_list(length)
+    thread = Thread(
         target=sort_func,
         name=name,
-        args=[
-            generate_random_list(length)
-        ]
+        args=(
+            random_list,
+        ),
+        daemon=True,
     )
-    start_time = time()
-    process.start()
-    process.join(timeout)
-    process.terminate()
-
-    return RunResult((time()-start_time)/timeout, process.exitcode is None)
-
-
-@dataclass
-class RunResult:
-    time_share_used: float
-    timeout: bool
+    thread.start()
+    thread.join(timeout)
+    return not thread.is_alive()

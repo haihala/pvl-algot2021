@@ -27,8 +27,7 @@ def benchmarks():
             sorted,
             100000,
         ),
-    ], headers=['Algo', 'Keskimääräinen kippauspiste'],
-        floatfmt='f',
+    ], headers=['Algoritmi', 'Kippauspiste', '+-'],
     ))
 
 

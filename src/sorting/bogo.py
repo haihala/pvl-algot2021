@@ -21,4 +21,4 @@ def test_bogo():
     assert bogo(items[:]) == sorted(items)
 
 
-bogo_benchmark = partial(benchmark, 'Bogo sort', bogo, 4)
+bogo_benchmark = partial(benchmark, 'Bogo sort', bogo, 10)
