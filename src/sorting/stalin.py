@@ -15,13 +15,30 @@ def stalin(nums: List[int]) -> List[int]:
     return output
 
 
-def test_stalin():
+NAME = 'Stalin sort'
+
+
+def _test_stalin():
+    print(f'Testing {NAME}', end='')
+
+    # Stalin tuhoaa alkioita niin ei voi käyttää generic
     items = generate_random_list(10)
-    # Stalin tuhoaa alkioita niin ei voi testata 'helposti' onko ne järjestyksessä
     result = stalin(items[:])
 
     assert all(result[i] < result[i+1] for i in range(len(result)-1))
     assert len(result) <= len(items)
+    print(' - Passed')
 
 
-stalin_benchmark = partial(benchmark, 'Stalin sort', stalin, 100000)
+# This is done so that vscode uses consistent coloring
+# It isn't what you'd call good code, but it saves 20 seconds from the lecture
+# Don't actually ever do this
+test_stalin = _test_stalin
+
+
+stalin_benchmark = partial(
+    benchmark,
+    NAME,
+    stalin,
+    100000,
+)

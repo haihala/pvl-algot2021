@@ -1,4 +1,4 @@
-from helpers import benchmark, generate_random_list
+from helpers import benchmark, generic_test
 
 from typing import List
 from functools import partial
@@ -16,10 +16,13 @@ def bubble(nums: List[int]) -> List[int]:
     return nums
 
 
-def test_bubble():
-    items = generate_random_list(10)
-    result = bubble(items[:])
-    assert result == sorted(items), result
+NAME = 'Bubble sort'
 
+test_bubble = partial(generic_test, NAME, bubble)
 
-bubble_benchmark = partial(benchmark, 'Bubble sort', bubble, 1000)
+bubble_benchmark = partial(
+    benchmark,
+    NAME,
+    bubble,
+    1000,
+)

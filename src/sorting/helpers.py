@@ -4,6 +4,28 @@ from numpy.random import randint as random_numpy_array
 from typing import List, Optional, Callable
 
 
+def generic_test(
+    name: str,
+    func: Callable[
+        [List[int]],
+        List[int]
+    ],
+    length: Optional[int] = 10,
+):
+    print(f'Testing {name}', end='')
+    items = generate_random_list(
+        length,
+
+        # Small enough for collisions to occasionally happen and to be human readable
+        upper_bound=100,
+    )
+    expected = sorted(items[:])
+    actual = func(items[:])
+
+    assert expected == actual, (expected, actual)
+    print(' - Passed')
+
+
 def generate_random_list(
     length: int,
     lower_bound: Optional[int] = 0,

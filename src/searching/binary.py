@@ -1,4 +1,7 @@
+from functools import partial
 from typing import List
+
+from helpers import benchmark, generic_test
 
 
 def binary(search_space: List[int], target: int) -> int:
@@ -14,3 +17,21 @@ def binary(search_space: List[int], target: int) -> int:
             high_bound = test_index
         else:
             low_bound = test_index
+
+
+NAME = 'Binary search'
+
+test_binary = partial(
+    generic_test,
+    NAME,
+    binary,
+    sorted
+)
+
+benchmark_binary = partial(
+    benchmark,
+    NAME,
+    binary,
+    10000,
+    sorted,
+)

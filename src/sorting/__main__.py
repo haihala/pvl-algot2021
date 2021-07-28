@@ -1,18 +1,20 @@
-from tabulate import tabulate
+from sys import argv as command_line_args
 
-from helpers import benchmark
+from tabulate import tabulate
 
 from bogo import bogo_benchmark, test_bogo
 from stalin import stalin_benchmark, test_stalin
 from bubble import bubble_benchmark, test_bubble
 from insertion import insertion_benchmark, test_insertion
 from quick import quick_benchmark, test_quick
+from default import sorted_benchmark
 
 
 def main():
-    # All sorts are done in an ascending order
-    tests()
-    benchmarks()
+    if 'test' in command_line_args[1:]:
+        tests()
+    if 'bench' in command_line_args[1:]:
+        benchmarks()
 
 
 def benchmarks():
@@ -22,29 +24,16 @@ def benchmarks():
         bubble_benchmark(),
         insertion_benchmark(),
         quick_benchmark(),
-        benchmark(
-            'Python builtin "sorted"',
-            sorted,
-            100000,
-        ),
+        sorted_benchmark(),
     ], headers=['Algoritmi', 'Kippauspiste', '+-'],
     ))
 
 
 def tests():
-    print('Testing Bogo sort')
     test_bogo()
-
-    print('Testing Stalin sort')
     test_stalin()
-
-    print('Testing Bubble sort')
     test_bubble()
-
-    print('Testing Insertion sort')
     test_insertion()
-
-    print('Testing Quick sort')
     test_quick()
 
 

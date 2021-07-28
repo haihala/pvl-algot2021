@@ -1,4 +1,4 @@
-from helpers import benchmark, generate_random_list
+from helpers import benchmark, generate_random_list, generic_test
 
 from typing import List, Optional
 from functools import partial
@@ -34,15 +34,17 @@ def quick(nums: List[int], debug: Optional[bool] = False) -> List[int]:
     return quick(nums[:low], debug) + [pivot] + quick(nums[low+1:], debug)
 
 
-def test_quick():
-    items = generate_random_list(10)
-    result = quick(items[:], True)
-    assert result == sorted(items), result
+NAME = 'Quick sort'
 
+test_quick = partial(
+    generic_test,
+    NAME,
+    quick,
+)
 
 quick_benchmark = partial(
     benchmark,
-    'Quick sort',
+    NAME,
     quick,
     10000,
 )

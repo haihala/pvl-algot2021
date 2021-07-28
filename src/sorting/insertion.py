@@ -1,4 +1,4 @@
-from helpers import benchmark, generate_random_list
+from helpers import benchmark, generic_test
 
 from typing import List
 from functools import partial
@@ -18,15 +18,17 @@ def insertion(nums: List[int]) -> List[int]:
     return output
 
 
-def test_insertion():
-    items = generate_random_list(10)
-    result = insertion(items[:])
-    assert result == sorted(items), result
+NAME = 'Insertion sort'
 
+test_insertion = partial(
+    generic_test,
+    NAME,
+    insertion,
+)
 
 insertion_benchmark = partial(
     benchmark,
-    'Insertion sort',
+    NAME,
     insertion,
     10000,
 )

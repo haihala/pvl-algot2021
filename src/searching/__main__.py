@@ -1,71 +1,34 @@
-from random import choice
-from linear import linear
-from binary import binary
-from helpers import benchmark, generate_random_list
+from sys import argv as command_line_args
 
 from tabulate import tabulate
 
-from typing import List
+from linear import benchmark_sorted_linear, benchmark_unsorted_linear, test_sorted_linear, test_unsorted_linear
+from binary import benchmark_binary, test_binary
+from default import benchmark_sorted_default, benchmark_unsorted_default
 
 
 def main():
-    # All sorts are done in an ascending order
-    tests()
-    benchmarks()
+    if 'test' in command_line_args[1:]:
+        tests()
+    if 'bench' in command_line_args[1:]:
+        benchmarks()
 
 
 def benchmarks():
-    def default_index(search_space: List[int], target: int) -> int:
-        return search_space.index(target)
-
     print(tabulate([
-        benchmark(
-            'Unsorted linear search',
-            linear,
-            10000,
-        ),
-        benchmark(
-            'Sorted linear search',
-            linear,
-            10000,
-            sorted,
-        ),
-        benchmark(
-            'Binary search',
-            binary,
-            10000,
-            sorted,
-        ),
-        benchmark(
-            'Python builtin "index" unsorted',
-            default_index,
-            10000,
-            sorted,
-        ),
-        benchmark(
-            'Python builtin "index" sorted',
-            default_index,
-            10000,
-        ),
+        benchmark_sorted_linear(),
+        benchmark_unsorted_linear(),
+        benchmark_binary(),
+        benchmark_sorted_default(),
+        benchmark_unsorted_default(),
     ], headers=['Algoritmi', 'Kippauspiste', '+-'],
     ))
 
 
 def tests():
-    random_list = generate_random_list(10, upper_bound=100)
-    random_item = choice(random_list)
-    random_item_index = random_list.index(random_item)
-
-    print('Testing unsorted linear search')
-    assert random_item_index == linear(random_list, random_item)
-
-    print('Testing sorted linear search')
-    random_list.sort()
-    random_item_index = random_list.index(random_item)
-    assert random_item_index == linear(random_list, random_item)
-
-    print('Testing binary search')
-    assert random_item_index == binary(random_list, random_item)
+    test_sorted_linear()
+    test_unsorted_linear()
+    test_binary()
 
 
 if __name__ == '__main__':

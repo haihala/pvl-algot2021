@@ -6,6 +6,34 @@ from random import choice
 from typing import List, Optional, Callable
 
 
+def generic_test(
+    name: str,
+    func: Callable[
+        [List[int]],
+        List[int]
+    ],
+    preprocessor: Optional[
+        Callable[
+            [List[int]],
+            List[int],
+        ]
+    ] = None,
+):
+    print(f'Testing {name}', end='')
+    items = generate_random_list(10)
+
+    if preprocessor:
+        items = preprocessor(items)
+
+    target = choice(items)
+
+    expected = items.index(target)
+    actual = func(items, target)
+
+    assert expected == actual, (expected, actual)
+    print(' - Passed')
+
+
 def generate_random_list(
     length: int,
     lower_bound: Optional[int] = 0,

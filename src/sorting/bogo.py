@@ -1,4 +1,4 @@
-from helpers import benchmark, generate_random_list
+from helpers import benchmark, generate_random_list, generic_test
 
 from typing import List
 from random import shuffle
@@ -16,9 +16,18 @@ def bogo(nums: List[int]) -> List[int]:
         shuffle(nums)
 
 
-def test_bogo():
-    items = generate_random_list(5)
-    assert bogo(items[:]) == sorted(items)
+NAME = 'Bogo sort'
 
+test_bogo = partial(
+    generic_test,
+    NAME,
+    bogo,
+    length=5,
+)
 
-bogo_benchmark = partial(benchmark, 'Bogo sort', bogo, 10)
+bogo_benchmark = partial(
+    benchmark,
+    'Bogo sort',
+    bogo,
+    10,
+)
