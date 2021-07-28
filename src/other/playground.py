@@ -1,9 +1,19 @@
+from typing import List
+from dataclasses import dataclass
+
+
 # Tyyppiannotaatiot
 def funktio(x: int) -> int:
     return 2*x
 
 
+# Jotkut annotaatiot pitää importtaa
+def funktio_listoille(x: List[int]) -> List[int]:
+    ...
+
 # Testit ja assert
+
+
 def test_funktio():
     assert funktio(2) == 4
 
@@ -129,3 +139,16 @@ if norppa := lista:
 norppa = lista
 if norppa:
     print(norppa)
+
+
+@dataclass
+class dataclassDemo:
+    kokonaisluku: int
+    merkkijono: str
+
+
+# On sama kuin
+class dataclassDemo:
+    def __init__(self, kokonaisluku: int, merkkijono: str) -> None:
+        self.kokonaisluku = kokonaisluku
+        self.merkkijono = merkkijono
