@@ -10,8 +10,7 @@ def brute_forces_solution(nums: List[int]) -> int:
 
 
 def sorting_solution(nums: List[int]) -> int:
-    nums.sort()
-    return nums[-1]
+    return sorted(nums)[-1]
 
 
 def builtin_solution(nums: List[int]) -> int:
