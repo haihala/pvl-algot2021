@@ -2,7 +2,7 @@ from typing import Set
 from math import sqrt
 
 
-def brute_force(num: int) -> Set[int]:
+def brute_force_solution(num: int) -> Set[int]:
     collector = set()
     for i in range(2, num+1):
         # 1 ei ole alkuluku, jonka tähden aloitetaan range 2:sta
@@ -22,12 +22,12 @@ def brute_force(num: int) -> Set[int]:
     )
 
 
-def recursive_solution(num: int) -> Set[int]:
+def fancy_solution(num: int) -> Set[int]:
     collector = {
         j
         for i in filter(lambda x: num % x == 0, range(2, int(sqrt(num))+1))
         for j in {i, num//i}
-        if recursive_solution(j) == {j}
+        if fancy_solution(j) == {j}
     }
     if len(collector) == 0:
         collector.add(num)
