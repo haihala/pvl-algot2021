@@ -62,7 +62,7 @@ Algoritmit:
 - Bubble sort
 - Insertion sort
 - Quick sort
-- Python 'sorted'
+- Python 'sorted' = .sort()
 
 ## Other
 
